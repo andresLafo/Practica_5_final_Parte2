@@ -10,10 +10,18 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    obstaculo.cpp \
+    particula.cpp \
+    simulador.cpp \
+    vector2.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    obstaculo.h \
+    particula.h \
+    simulador.h \
+    vector2.h
 
 FORMS += \
     mainwindow.ui
