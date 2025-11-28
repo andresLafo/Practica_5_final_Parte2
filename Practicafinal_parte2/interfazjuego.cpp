@@ -20,7 +20,7 @@ InterfazJuego::InterfazJuego(QWidget *parent)
     temporizador.start(int(dt * 1000));
 
     tiempoProyectil = 0.0;
-    tiempoMaximo = 10.0;   // duración del disparo en segundos
+    tiempoMaximo = 20.0;   // duración del disparo en segundos
     disparoEnCurso = false;
 
 
@@ -231,15 +231,19 @@ void InterfazJuego::paintEvent(QPaintEvent*)
         p.drawPixmap(pr.toRect(), texturaProyectil);
     }
     // Datos
-    p.setPen(Qt::black);
+
+
+    p.setBrush(QColor(0,0,0,150));
+    p.setPen(Qt::NoPen);
+    p.drawRect(10, 10, 180, 70);
+
+    if (jugadorActual == 1)
+        p.setPen(Qt::red);
+    else
+        p.setPen(Qt::blue);
     p.setFont(QFont("Arial", 18));
 
-    QString textoHUD =
-        QString("Ángulo: %1°\nVelocidad: %2")
-            .arg(int(anguloActual))
-            .arg(int(velocidadActual));
-
-
-    p.drawText(20, 40, textoHUD);
+    p.drawText(20, 40, QString("Ángulo: %1°").arg(int(anguloActual)));
+    p.drawText(20, 70, QString("Velocidad: %1").arg(int(velocidadActual)));
 
 }
