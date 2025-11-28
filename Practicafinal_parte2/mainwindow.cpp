@@ -31,6 +31,22 @@ MainWindow::MainWindow(QWidget *parent)
 
     // El widget del juego debe saber quién es el jugador actual
     game->establecerJugadorActual(jugadorActual);
+
+    connect(game, &InterfazJuego::finProyectil,
+            [this]() {
+
+                // Cambiar jugador y turno
+                jugadorActual = 3 - jugadorActual;
+                turno++;
+
+                lblJugador->setText(QString("Jugador actual: %1").arg(jugadorActual));
+                lblTurno->setText(QString("Turno: %1").arg(turno));
+
+                game->establecerJugadorActual(jugadorActual);
+
+                game->setFocus();
+            });
+
 }
 
 void MainWindow::alFinalizarJuego(int jugadorGanador)

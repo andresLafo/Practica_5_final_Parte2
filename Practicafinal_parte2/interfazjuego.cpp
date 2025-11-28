@@ -19,11 +19,16 @@ InterfazJuego::InterfazJuego(QWidget *parent)
     connect(&temporizador, &QTimer::timeout, this, &InterfazJuego::actualizar);
     temporizador.start(int(dt * 1000));
 
-    fondo = QPixmap(":/imagenes/multimedia/imagenes/fondo.png");
-    texturaObstaculo = QPixmap(":/imagenes/multimedia/imagenes/obstaculo.png");
-    canonIzq = QPixmap(":/imagenes/multimedia/imagenes/canon1.png");
-    canonDer = QPixmap(":/imagenes/multimedia/imagenes/canon2.png");
-    texturaProyectil = QPixmap(":/imagenes/multimedia/imagenes/bala.png");
+    tiempoProyectil = 0.0;
+    tiempoMaximo = 10.0;   // duración del disparo en segundos
+    disparoEnCurso = false;
+
+
+    fondo = QPixmap("C:/Users/Andres Felipe/OneDrive/Escritorio/informatica II Andres Lafaurie/INFORMATICA 2/Practica 5-2/Practicafinal_parte2/multimedia/imagenes/Fondo.png");
+    texturaObstaculo = QPixmap("C:/Users/Andres Felipe/OneDrive/Escritorio/informatica II Andres Lafaurie/INFORMATICA 2/Practica 5-2/Practicafinal_parte2/multimedia/imagenes/TexturaObsatculo.png");
+    canonIzq = QPixmap("C:/Users/Andres Felipe/OneDrive/Escritorio/informatica II Andres Lafaurie/INFORMATICA 2/Practica 5-2/Practicafinal_parte2/multimedia/imagenes/Resortera.png");
+    canonDer = QPixmap("C:/Users/Andres Felipe/OneDrive/Escritorio/informatica II Andres Lafaurie/INFORMATICA 2/Practica 5-2/Practicafinal_parte2/multimedia/imagenes/Resortera2.png");
+    texturaProyectil = QPixmap("C:/Users/Andres Felipe/OneDrive/Escritorio/informatica II Andres Lafaurie/INFORMATICA 2/Practica 5-2/Practicafinal_parte2/multimedia/imagenes/RedProyectil.png");
 
     setFocusPolicy(Qt::StrongFocus);
     setFocus();
@@ -107,6 +112,10 @@ void InterfazJuego::disparar(double angulo, double velocidad, int jugador)
 
     if (!temporizador.isActive())
         temporizador.start(int(dt * 1000));
+
+    tiempoProyectil = 0.0;
+    disparoEnCurso = true;
+
 }
 
 void InterfazJuego::actualizar()
@@ -123,12 +132,14 @@ void InterfazJuego::actualizar()
     for (auto &p : sim.particulas)
         if (p.activa) activa = true;
 
-    if (!activa)
-        framesSinProyectil++;
+    if (disparoEnCurso) {
+        tiempoProyectil += dt;
 
-    if (framesSinProyectil > 5) {
-        emit finProyectil();
-        framesSinProyectil = -100;
+        if (tiempoProyectil >= tiempoMaximo) {
+            sim.limpiarParticulas();
+            disparoEnCurso = false;
+            emit finProyectil();
+        }
     }
 
     update();
@@ -219,4 +230,16 @@ void InterfazJuego::paintEvent(QPaintEvent*)
         QRectF pr(px - 12, py - 12, 24, 24);
         p.drawPixmap(pr.toRect(), texturaProyectil);
     }
+    // Datos
+    p.setPen(Qt::black);
+    p.setFont(QFont("Arial", 18));
+
+    QString textoHUD =
+        QString("Ángulo: %1°\nVelocidad: %2")
+            .arg(int(anguloActual))
+            .arg(int(velocidadActual));
+
+
+    p.drawText(20, 40, textoHUD);
+
 }

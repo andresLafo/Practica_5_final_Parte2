@@ -9,21 +9,21 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    interfazjuego.cpp \
     main.cpp \
     mainwindow.cpp \
-    obstaculo.cpp \
-    particula.cpp \
+    interfazjuego.cpp \
     simulador.cpp \
-    vector2.cpp
+    particula.cpp \
+    vector2.cpp \
+    obstaculo.cpp
 
 HEADERS += \
-    interfazjuego.h \
     mainwindow.h \
-    obstaculo.h \
-    particula.h \
+    interfazjuego.h \
     simulador.h \
-    vector2.h
+    particula.h \
+    vector2.h \
+    obstaculo.h
 
 FORMS += \
     mainwindow.ui
@@ -32,3 +32,16 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    ../Sprites/bala4.png \
+    ../Sprites/enemigo3.png \
+    ../Sprites/fondo.avif \
+    ../Sprites/fondo.jpg \
+    ../Sprites/jugador3.png \
+    multimedia/imagenes/bala.png \
+    multimedia/imagenes/canon1.png \
+    multimedia/imagenes/canon2.png \
+    multimedia/imagenes/fondo.png \
+    multimedia/imagenes/obs.jpg \
+    multimedia/imagenes/obstaculo.png

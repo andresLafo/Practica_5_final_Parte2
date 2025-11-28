@@ -50,6 +50,10 @@ private:
     int jugadorActual;
 
     bool verificarVictoria();
+    double tiempoProyectil;
+    double tiempoMaximo;     // duración del disparo
+    bool disparoEnCurso;
+
 };
 
 #endif // INTERFAZJUEGO_H
