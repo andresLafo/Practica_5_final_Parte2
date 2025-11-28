@@ -8,12 +8,12 @@
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent), jugadorActual(1), turno(1)
 {
-    game = new GameWidget(this);
+    game = new InterfazJuego(this);
 
     lblJugador = new QLabel("Jugador actual: 1", this);
     lblTurno   = new QLabel("Turno: 1", this);
 
-    connect(game, &GameWidget::juegoTerminado, this, &MainWindow::alFinalizarJuego);
+    connect(game, &InterfazJuego::juegoTerminado, this, &MainWindow::alFinalizarJuego);
 
     QVBoxLayout *controles = new QVBoxLayout;
     controles->addWidget(lblJugador);

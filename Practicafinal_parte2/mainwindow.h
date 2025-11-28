@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QLabel>
-#include "GameWidget.h"
+#include "interfazjuego.h"
 
 class MainWindow : public QWidget {
     Q_OBJECT
@@ -15,7 +15,7 @@ private slots:
     void alFinalizarJuego(int jugadorGanador);
 
 private:
-    GameWidget *game;
+    InterfazJuego *game;
     int turno;
     int jugadorActual;
 
