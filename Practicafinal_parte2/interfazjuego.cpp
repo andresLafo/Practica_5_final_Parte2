@@ -246,7 +246,4 @@ void InterfazJuego::paintEvent(QPaintEvent*)
     p.drawText(20, 40, QString("Ángulo: %1°").arg(int(anguloActual)));
     p.drawText(20, 70, QString("Velocidad: %1").arg(int(velocidadActual)));
 
-
-
-
 }
