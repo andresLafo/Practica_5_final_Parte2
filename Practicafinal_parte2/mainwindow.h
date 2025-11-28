@@ -1,23 +1,28 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QWidget>
+#include <QLabel>
+#include "GameWidget.h"
 
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
-QT_END_NAMESPACE
-
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QWidget {
     Q_OBJECT
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+
+private slots:
+    void alFinalizarJuego(int jugadorGanador);
 
 private:
-    Ui::MainWindow *ui;
+    GameWidget *game;
+    int turno;
+    int jugadorActual;
+
+    QLabel *lblTurno;
+    QLabel *lblJugador;
+
+    void reiniciarJuego();
 };
-#endif // MAINWINDOW_H
+
+#endif
